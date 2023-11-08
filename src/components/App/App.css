@@ -1,0 +1,24 @@
+header {
+  text-align: center;
+  height: 45px;
+  background-color: lightblue;
+  margin-bottom: 1rem;
+}
+
+header h1 {
+  margin: 0;
+}
+
+main {
+  width: 90%;
+  margin: auto;
+}
+
+section {
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+form.add-book-form button[type=submit] {
+  display: block;
+}
