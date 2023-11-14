@@ -37,6 +37,11 @@ const listName = (state = 'test', action) => {
 //Reducer - more on this later
 const bookList = (state = [], action) => {
   // TODO - set book list with data from server
+  if (action.type === 'ADD_BOOK') {
+    // combine the existing state (Array)
+    // with the new book (action.payload)
+    return [...state, action.payload]; // similar to .push
+  }
   return state;
 }
 
