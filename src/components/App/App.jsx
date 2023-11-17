@@ -3,8 +3,10 @@ import BookList from '../BookList/BookList';
 import ListName from '../ListName/ListName';
 // we use useSelector to pull information
 // out of our Redux store
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import './App.css';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 function App() {
   // Connect a local variable to our reducer
@@ -25,6 +27,19 @@ function App() {
   }
 
   // TODO - GET Book List from server
+  const getBookList = () => {
+    axios.get('/books').then((response) => {
+      const action = {type: 'SET_BOOK_LIST', payload: response.data};
+      dispatch(action);
+    }).catch((error) => {
+      console.error('Error getting book list', error);
+      alert('Something went wrong!')
+    })
+  }
+
+  useEffect(() => {
+    getBookList();
+  }, []);
 
   return (
     <div className="App">
@@ -37,7 +52,7 @@ function App() {
       <h4>Name your book list</h4>
       <ListName/>
       <main>
-        <BookForm />
+        <BookForm getBookList={getBookList}/>
         <BookList />
       </main>
     </div>

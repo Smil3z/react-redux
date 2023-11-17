@@ -1,8 +1,9 @@
 import { useState } from 'react';
 // useDispatch sends data to redux
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
-function BookForm() {
+function BookForm(props) {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const dispatch = useDispatch();
@@ -13,11 +14,21 @@ function BookForm() {
     console.log(`Adding book`, {title, author});
 
     // TODO - axios request to server to add book
-    let action = {
+    // this block of code only adds to redux not the database
+    {/*let action = {
       type: 'ADD_BOOK', 
       payload: {title: title, author: author}
     };
-    dispatch(action);
+    dispatch(action);*/}
+    
+    // send data to the server
+    axios.post('/books', {title, author}).then((response) => {
+      //TODO: call getBookList via props
+      props.getBookList();
+    }).catch((error) => {
+      console.log('error posting a book', error);
+      alert('something went wrnog')
+    });
   };
 
   return (
